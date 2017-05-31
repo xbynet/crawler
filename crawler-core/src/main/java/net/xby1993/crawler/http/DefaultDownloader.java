@@ -10,7 +10,6 @@ import net.xby1993.crawler.Const;
 import net.xby1993.crawler.Request;
 import net.xby1993.crawler.Response;
 import net.xby1993.crawler.Site;
-import net.xby1993.crawler.Spider;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
@@ -23,9 +22,7 @@ import org.slf4j.LoggerFactory;
 public class DefaultDownloader extends AbsDownloader {
 	private final Logger log = LoggerFactory.getLogger(DefaultDownloader.class);
 
-	public DefaultDownloader(Spider spider) {
-		super(spider);
-	}
+	@Override
 	public void download(Request request){
 		super.download(request);
 	}

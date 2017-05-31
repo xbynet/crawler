@@ -7,7 +7,6 @@ import java.io.IOException;
 import net.xby1993.crawler.Request;
 import net.xby1993.crawler.Response;
 import net.xby1993.crawler.Site;
-import net.xby1993.crawler.Spider;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -19,12 +18,10 @@ import org.slf4j.LoggerFactory;
 public class FileDownloader extends AbsDownloader{
 	private final Logger log=LoggerFactory.getLogger(FileDownloader.class);
 	
-	public FileDownloader(Spider spider) {
-		super(spider);
-	}
+	
 	public boolean download(Request request,String savePath){
 		log.debug("开始下载文件"+request.getUrl()+"到路径"+savePath);
-		super.download(request,savePath);
+		super.doDownload(request,savePath);
 		File file=new File(savePath);
 		return file.exists();
 	}

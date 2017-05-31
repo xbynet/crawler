@@ -3,7 +3,6 @@ package net.xby1993.crawler;
 import java.io.Closeable;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -13,6 +12,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 import net.xby1993.crawler.http.DefaultDownloader;
+import net.xby1993.crawler.http.Downloader;
 import net.xby1993.crawler.http.FileDownloader;
 import net.xby1993.crawler.http.HttpClientFactory;
 import net.xby1993.crawler.scheduler.DefaultScheduler;
@@ -32,7 +32,7 @@ public class Spider implements ISpider, Runnable {
 	private IpProxyProvider ipProvider;
 	private HttpClientFactory httpClientFactory = new HttpClientFactory();
 	private FileDownloader fileDownloader = null;
-	private DefaultDownloader defaultDownloader=null;
+	private Downloader defaultDownloader=null;
 	private Processor processor;
 	private SpiderListener spiderListener;
 	/** 是否在任务结束后释放所有资源并终止 */
@@ -58,8 +58,12 @@ public class Spider implements ISpider, Runnable {
 
 	private Spider() {
 		this.name = "Spider-" + UUID.randomUUID().toString();
-		this.fileDownloader = new FileDownloader(this);
-		this.defaultDownloader=new DefaultDownloader(this);
+		this.fileDownloader = new FileDownloader();
+		this.fileDownloader.setSpider(this);
+		this.fileDownloader.init();
+		this.defaultDownloader=new DefaultDownloader();
+		this.defaultDownloader.setSpider(this);
+		this.defaultDownloader.init();
 	}
 	
 	
@@ -114,15 +118,10 @@ public class Spider implements ISpider, Runnable {
 			spider.httpClientFactory = httpClientFactory;
 			return this;
 		}
-		public Builder fileDownloader(Class<FileDownloader> clz) {
-			Constructor<FileDownloader> constructor;
-			try {
-				constructor = clz.getDeclaredConstructor(Spider.class);
-				FileDownloader tmp=constructor.newInstance(spider);
-				spider.fileDownloader = tmp;
-			} catch (Exception e) {
-				log.error("",e);
-			} 
+		public Builder fileDownloader(FileDownloader fileDownloader1) {
+			fileDownloader1.setSpider(spider);
+			fileDownloader1.init();
+			spider.fileDownloader=fileDownloader1;
 			return this;
 		}
 		public Builder listener(SpiderListener spiderListener) {
@@ -142,15 +141,10 @@ public class Spider implements ISpider, Runnable {
 			return this;
 		}
 
-		public Builder defaultDownloader(Class<DefaultDownloader> clz) {
-			Constructor<DefaultDownloader> constructor;
-			try {
-				constructor = clz.getDeclaredConstructor(Spider.class);
-				DefaultDownloader tmp=constructor.newInstance(spider);
-				spider.defaultDownloader = tmp;
-			} catch (Exception e) {
-				log.error("",e);
-			}
+		public Builder defaultDownloader(Downloader downloader) {
+			downloader.setSpider(spider);
+			downloader.init();
+			spider.defaultDownloader=downloader;
 			return this;
 		}
 
@@ -359,11 +353,17 @@ public class Spider implements ISpider, Runnable {
 		this.endTime = endTime;
 	}
 
-	public DefaultDownloader getDefaultDownloader() {
+	public Downloader getDefaultDownloader() {
 		return defaultDownloader;
 	}
 
 	public AtomicLong getProcessUrlCount() {
 		return processUrlCount;
+	}
+	/**
+	 * 是否处于空闲状态
+	 */
+	public boolean isIdle(){
+		return pool.getThreadAlive() == 0;
 	}
 }

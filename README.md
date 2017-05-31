@@ -7,11 +7,11 @@ a simple web crawler framework for java.
 3、支持文件下载、分块抓取    
 4、请求和相应支持的内容和选项比较丰富、每个请求可定制性强   
 5、支持网络请求前后执行自定义操作  
+6、Selenium+PhantomJS支持
 
 ## Future:
 1、加入Redis支持  
-2、加入Selenium支持  
-3、完善代码注释和稳定、完善测试代码  
+2、完善代码注释和稳定、完善测试代码  
 
 ## Install:
 
@@ -129,8 +129,8 @@ public class GithubCrawler extends Processor {
 
 		Spider spider = Spider.builder(this).threadNum(5)
 				.name("Spider-github-xbynet")
-				.defaultDownloader(DefaultDownloader.class)
-				.fileDownloader(FileDownloader.class)
+				.defaultDownloader(new DefaultDownloader())
+				.fileDownloader(new FileDownloader())
 				.httpClientFactory(new HttpClientFactory()).ipProvider(null)
 				.listener(null).pool(null).scheduler(new DefaultScheduler())
 				.shutdownOnComplete(true).site(site).build();

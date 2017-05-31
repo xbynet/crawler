@@ -2,3 +2,11 @@
 /.settings
 /target
 /.classpath
+/crawler-core/target
+/crawler-selenium/target
+/crawler-core/.project
+/crawler-core/.settings
+/crawler-core/.classpath
+/crawler-selenium/.project
+/crawler-selenium/.settings
+/crawler-selenium/.classpath

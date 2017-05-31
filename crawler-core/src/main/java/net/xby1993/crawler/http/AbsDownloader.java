@@ -1,6 +1,5 @@
 package net.xby1993.crawler.http;
 
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -33,22 +32,23 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbsDownloader implements Closeable{
+public abstract class AbsDownloader implements Downloader{
 	private Logger log=LoggerFactory.getLogger(AbsDownloader.class);
 	
 	private CloseableHttpClient client;
 	private Spider spider;
 	
-	public AbsDownloader(Spider spider){
-		this.setSpider(spider);
+	public AbsDownloader(){
+		
+	}
+	public void init(){
 		HttpClientFactory clientFactory=spider.getHttpClientFactory();
 		if(clientFactory==null){
 			clientFactory=new HttpClientFactory();
 		}
 		this.client=clientFactory.getClient();
 	}
-
-	protected void download(Request request,Object... extras){
+	protected void doDownload(Request request,Object... extras){
 		String url=request.getUrl();
 		Site site=getSpider().getSite();
 		IpProxyProvider ipProxyProvider=getSpider().getIpProvider();
@@ -242,6 +242,11 @@ public abstract class AbsDownloader implements Closeable{
 		spider=null;
 		client.close();
 		client=null;
+	}
+
+	@Override
+	public void download(Request request) {
+		throw new RuntimeException("not support!");
 	}
 	
 }

@@ -115,8 +115,8 @@ public class GithubCrawler extends Processor {
 
 		Spider spider = Spider.builder(this).threadNum(5)
 				.name("Spider-github-xbynet")
-				.defaultDownloader(DefaultDownloader.class)
-				.fileDownloader(FileDownloader.class)
+				.defaultDownloader(new DefaultDownloader())
+				.fileDownloader(new FileDownloader())
 				.httpClientFactory(new HttpClientFactory()).ipProvider(null)
 				.listener(null).pool(null).scheduler(new DefaultScheduler())
 				.shutdownOnComplete(true).site(site).build();
