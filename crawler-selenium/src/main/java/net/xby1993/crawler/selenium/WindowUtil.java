@@ -1,8 +1,8 @@
 package net.xby1993.crawler.selenium;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -20,6 +20,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 /**
  * @author taojw
@@ -186,5 +187,25 @@ public class WindowUtil {
 			}
 		}
 		return httpCookie;
+	}
+	
+	/**
+	 * 获取css属性，最典型的就是获取某个元素的display状态
+	 * @param driver
+	 * @param cssSelector
+	 * @param attr
+	 * @return
+	 */
+	public static Object getCssAttr(WebDriver driver,String cssSelector,String attr){
+		InputStream ins=WindowUtil.class.getResourceAsStream("getCssAttr.js");
+		String externalJS="";
+		try {
+			externalJS = IOUtils.toString(ins,"UTF-8");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		IOUtils.closeQuietly(ins);
+		Object res = ((JavascriptExecutor) driver).executeScript(externalJS,cssSelector,attr);
+		return res;
 	}
 }

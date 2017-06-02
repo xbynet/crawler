@@ -11,6 +11,7 @@ import net.xby1993.crawler.http.HttpClientFactory;
 import net.xby1993.crawler.parser.JsoupParser;
 import net.xby1993.crawler.scheduler.DefaultScheduler;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.protocol.HttpClientContext;
