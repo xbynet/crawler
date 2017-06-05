@@ -6,7 +6,7 @@ A simple and flexible web crawler framework for java.
 2、Api is simple and easy to use         
 3、Support File download、Content part fetch.(支持文件下载、分块抓取)          
 4、Request And Response support much options、strong customizable.(请求和响应支持的内容和选项比较丰富、每个请求可定制性强)   
-5、support do your own operation before or after network request in downloader(支持网络请求前后执行自定义操作)        
+5、Support do your own operation before or after network request in downloader(支持网络请求前后执行自定义操作)        
 6、Selenium+PhantomJS support     
 7、Redis support      
 
@@ -15,7 +15,7 @@ A simple and flexible web crawler framework for java.
 
 ## Install:
 
-this is the plain maven javase project. so you can download the code and package jar file for your own.
+This is the plain maven javase project. So you can download the code and package jar file for your own.
 
 ## demo:
 
