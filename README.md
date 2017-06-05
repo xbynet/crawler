@@ -141,7 +141,8 @@ public class GithubCrawler extends Processor {
 }
 
 ```
-
+## More Examples:
+https://github.com/xbynet/crawler/tree/master/crawler-core/src/test/java/net/xby1993/crawler  
 
 ## Thinks: 
 [webmagic](https://github.com/code4craft/webmagic):本项目借鉴了webmagic多处代码，设计上也作了较多参考，非常感谢。     
