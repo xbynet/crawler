@@ -2,13 +2,13 @@
 A simple and flexible web crawler framework for java.
 
 ## Features:
-1、Code  is easy to understand and customized (代码简单易懂，可定制性强)   
-2、Api is simple and easy to use       
-3、Support File download、Content part fetch.(支持文件下载、分块抓取)       
-4、Request And Response support much options、strong customizable. (请求和响应支持的内容和选项比较丰富、每个请求可定制性强)      
-5、support do your own operation before or after network request in downloader（支持网络请求前后执行自定义操作）    
-6、Selenium+PhantomJS support   
-7、Redis support    
+1、Code  is easy to understand and customized (代码简单易懂，可定制性强)     
+2、Api is simple and easy to use         
+3、Support File download、Content part fetch.(支持文件下载、分块抓取)          
+4、Request And Response support much options、strong customizable. (请求和响应支持的内容和选项比较丰富、每个请求可定制性强)          
+5、support do your own operation before or after network request in downloader（支持网络请求前后执行自定义操作）         
+6、Selenium+PhantomJS support     
+7、Redis support      
 
 ## Future:
 1、Complete the code comment and test(完善代码注释和完善测试代码)     
