@@ -1,21 +1,21 @@
 # crawler
-a simple web crawler framework for java.
+A simple and flexible web crawler framework for java.
 
 ## Features:
-1、代码简单易懂，可定制性强   
-2、简单且易于使用的api   
-3、支持文件下载、分块抓取    
-4、请求和相应支持的内容和选项比较丰富、每个请求可定制性强   
-5、支持网络请求前后执行自定义操作  
-6、Selenium+PhantomJS支持
+1、Code  is easy to understand and customized (代码简单易懂，可定制性强)   
+2、Api is simple and easy to use       
+3、Support File download、Content part fetch.(支持文件下载、分块抓取)       
+4、Request And Response support much options、strong customizable. (请求和响应支持的内容和选项比较丰富、每个请求可定制性强)      
+5、support do your own operation before or after network request in downloader（支持网络请求前后执行自定义操作）    
+6、Selenium+PhantomJS support   
+7、Redis support    
 
 ## Future:
-1、加入Redis支持  
-2、完善代码注释和稳定、完善测试代码  
+1、Complete the code comment and test(完善代码注释和完善测试代码)     
 
 ## Install:
 
-this is the plain maven javase project. so you can download the code and package jar file for your own;
+this is the plain maven javase project. so you can download the code and package jar file for your own.
 
 ## demo:
 
@@ -120,8 +120,8 @@ public class GithubCrawler extends Processor {
 					CloseableHttpResponse resp) {
 				System.out.println("after-haha");
 			}
-		}).setCtx(ctx).setEncoding("GBK")
-				.putExtra("somekey", "我是可以在response中使用的extras哦")
+		}).setCtx(ctx).setEncoding("UTF-8")
+				.putExtra("somekey", "I can use in the response by your own")
 				.setHeader("User-Agent", pcUA).setMethod(Const.HttpMethod.GET)
 				.setPartRequest(null).setEntity(null)
 				.setParams("appkeyqqqqqq", "1213131232141").setRetryCount(5)
