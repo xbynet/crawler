@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import net.xby1993.crawler.parser.JsoupParser;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -36,15 +37,16 @@ public class OSChinaTweetsCrawler extends Processor{
 		resp.addRequest(req);
 		
 		StringBuilder sb=new StringBuilder();
+		List<String> authors=parser.list(".tweetitem .box-fl > a","title");
 		List<String> itemUrls=parser.list(".tweetitem .ti-toolbox a[title=\"查看详情\"]","href");
 		List<String> itemContents=new ArrayList<String>(itemUrls.size());
 		Elements els=parser.elements(".tweetitem");
 		for(Element e:els){
-			String tmp=e.select(".ti-content > .inner-content").first().text();
-			itemContents.add(tmp);
+			String tmp=e.select(".ti-content > .inner-content").first().html();
+			itemContents.add(tmp.replace("src=\"/", "src=\"https://www.oschina.net/"));
 		}
 		for(int i=0;i<itemContents.size();i++){
-			sb.append("content:"+itemContents.get(i)+"\n url:"+itemUrls.get(i)+"\n");
+			sb.append("<div style='margin: 5px 0;'><span style='color:blue;'>"+authors.get(i)+"</span><a style='color:red;margin:0 10px;' href='"+itemUrls.get(i)+"'>查看</a><span>"+itemContents.get(i)+"</span></div>\n");
 		}
 		appendToFile(sb.toString());
 	}
@@ -55,16 +57,18 @@ public class OSChinaTweetsCrawler extends Processor{
 		Spider spider = Spider.builder(this).threadNum(1).site(site)
 				.urls("https://www.oschina.net/tweets?nocache="+System.currentTimeMillis()).build();
 		spider.run();
+		appendToFile("</body></html>");
 	}
 	public static void main(String[] args) {
 		new OSChinaTweetsCrawler().start();
 	}
 	private synchronized void appendToFile(String content){
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd-HH");
-		File f=new File("D:\\code\\test\\oschina_tweets\\"+sdf.format(new Date())+".txt");
+		File f=new File("D:\\code\\test\\oschina_tweets\\"+sdf.format(new Date())+".html");
 		if(!f.exists()){
 			try {
 				f.createNewFile();
+				FileUtils.write(f, "<!DOCTYPE html><html><head><title></title><meta charset=\"UTF-8\"></head><body>","UTF-8");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
