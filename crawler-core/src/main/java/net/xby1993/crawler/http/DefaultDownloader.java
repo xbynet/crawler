@@ -24,7 +24,7 @@ public class DefaultDownloader extends AbsDownloader {
 
 	@Override
 	public void download(Request request){
-		super.download(request);
+		super.doDownload(request);
 	}
 	@Override
 	protected void process(HttpUriRequest httpUriRequest,
