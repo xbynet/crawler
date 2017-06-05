@@ -1,10 +1,18 @@
 package net.xby1993.crawler.scheduler;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import net.xby1993.crawler.Const;
 import net.xby1993.crawler.ISpider;
 import net.xby1993.crawler.Request;
+import net.xby1993.crawler.RequestAction;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +37,8 @@ public class RedisScheduler  implements Scheduler, DuplicateRemover  {
     private static final String SET_PREFIX = "set_";
 
     private static final String ITEM_PREFIX = "item_";
+    
+    private ConcurrentHashMap<String,List<Object>> requestDeserialList=new ConcurrentHashMap<String,List<Object>>();
 
     public RedisScheduler(String host) {
         this(new JedisPool(new JedisPoolConfig(), host));
@@ -67,11 +77,18 @@ public class RedisScheduler  implements Scheduler, DuplicateRemover  {
 			log.debug("push to queue {}", request.getUrl());
 			 try {
 		            jedis.rpush(getQueueKey(spider), request.getUrl());
-		            if (request.getExtras() != null) {
-		                String field = DigestUtils.md5Hex(request.getUrl());
-		                String value = JSON.toJSONString(request);
-		                jedis.hset((ITEM_PREFIX + spider.getName()), field, value);
-		            }
+		            String field = DigestUtils.md5Hex(request.getUrl());
+		            String value = JSON.toJSONString(request);
+		            jedis.hset((ITEM_PREFIX + spider.getName()), field, value);
+		            
+		            List<Object> slist=new ArrayList<Object>();
+		            
+		            slist.add(request.getCtx());
+		            slist.add(request.getEntity());
+		            slist.add(request.getAction());
+		            slist.add(request.getExtras());
+		            
+		            requestDeserialList.put(field,slist);
 		        } finally {
 		            jedis.close();
 		        }
@@ -91,9 +108,17 @@ public class RedisScheduler  implements Scheduler, DuplicateRemover  {
             byte[] bytes = jedis.hget(key.getBytes(), field.getBytes());
             if (bytes != null) {
                 Request o = JSON.parseObject(new String(bytes), Request.class);
+                
+                List<Object> slist=requestDeserialList.remove(field);
+                
+                o.setCtx((HttpClientContext) slist.get(0));
+                o.setEntity((HttpEntity) slist.get(1));
+                o.setAction((RequestAction) slist.get(2));
+                o.setExtras((Map<String, Object>) slist.get(3));
+                
                 return o;
             }
-                Request request = new Request(url);
+            Request request = new Request(url);
             return request;
         } finally {
         	jedis.close();

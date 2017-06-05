@@ -8,6 +8,8 @@ import java.util.Map;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.protocol.HttpClientContext;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Request {
 	private String url;
 	private String encoding;
@@ -20,14 +22,19 @@ public class Request {
 	private Map<String,String> params=new HashMap<String,String>();
 	/**可以在添加请求时附加额外信息*/
 	private Map<String, Object> extras=new HashMap<String,Object>();
+	
+	@JSONField(serialize=false)
 	private HttpClientContext ctx;
 	
 	/**
 	 * support for json,xml or more,在post时，设置此选项会使params参数失效。
 	  */
+	@JSONField(serialize=false)
 	private HttpEntity entity;
 	
+	@JSONField(serialize=false)
 	private RequestAction action;
+	
 	/**支持存在分块请求的情形，(比如一篇文章需要翻多页抓取，歌手信息不分布在多个页面中)*/
 	private List<Request> partRequest=new ArrayList<Request>();
 	/**是否分块*/
@@ -63,7 +70,11 @@ public class Request {
 	public Map<String, Object> getExtras() {
 		return extras;
 	}
-	public Request setExtras(String key,String value) {
+	public Request setExtras(Map<String, Object> extras) {
+		this.extras=extras;
+		return this;
+	}
+	public Request putExtra(String key,String value) {
 		extras.put(key, value);
 		return this;
 	}

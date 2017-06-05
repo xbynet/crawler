@@ -71,7 +71,7 @@ public class GithubCrawler extends Processor {
 				for (int i = 0; i < reponames.size(); i++) {
 					String tmpUrl="https://github.com"+repoUrls.get(i);
 					System.out.println(reponames.get(i) + ":"+tmpUrl);
-					Request req=new Request(tmpUrl).setExtras("name", reponames.get(i));
+					Request req=new Request(tmpUrl).putExtra("name", reponames.get(i));
 					resp.addRequest(req);
 				}
 			}
@@ -121,7 +121,7 @@ public class GithubCrawler extends Processor {
 				System.out.println("after-haha");
 			}
 		}).setCtx(ctx).setEncoding("GBK")
-				.setExtras("somekey", "我是可以在response中使用的extras哦")
+				.putExtra("somekey", "我是可以在response中使用的extras哦")
 				.setHeader("User-Agent", pcUA).setMethod(Const.HttpMethod.GET)
 				.setPartRequest(null).setEntity(null)
 				.setParams("appkeyqqqqqq", "1213131232141").setRetryCount(5)
