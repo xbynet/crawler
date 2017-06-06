@@ -52,6 +52,7 @@ public class PhantomjsWebDriverPool implements WebDriverPool {
 		innerQueue = new LinkedBlockingDeque<WebDriver>(poolsize);
 		PHANTOMJS_PATH = phantomjsPath;
 		caps.setJavascriptEnabled(true);
+		caps.setCapability("webStorageEnabled", true);
 		caps.setCapability(
 				PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
 				PHANTOMJS_PATH);
