@@ -198,6 +198,10 @@ public class Spider implements ISpider, Runnable {
 		setStatus(Status.Running);
 		init();
 		log.debug("Spider "+getName()+" start!");
+		System.out.println("--------------------------------------------------------------");
+		System.out.println("### 不要问我为什么，你要记住，在你最落寞的时候，有个人对你说过，你可以的！###");
+		System.out.println("### 为什么要写爬虫呢？因为我们爬的是寂寞;因为泡妹子需要笑话;因为找工作需要筛选职位;因为老板要求;也许因为要装x才是正解   ###");
+		System.out.println("--------------------------------------------------------------");
 		while (!Thread.currentThread().isInterrupted() && state==Status.Running) {
 			Request request = scheduler.poll(this);
             if (request == null) {

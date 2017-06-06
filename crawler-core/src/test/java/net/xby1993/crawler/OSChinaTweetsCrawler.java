@@ -46,7 +46,7 @@ public class OSChinaTweetsCrawler extends Processor{
 			itemContents.add(tmp.replace("src=\"/", "src=\"https://www.oschina.net/"));
 		}
 		for(int i=0;i<itemContents.size();i++){
-			sb.append("<div style='margin: 5px 0;'><span style='color:blue;'>"+authors.get(i)+"</span><a style='color:red;margin:0 10px;' href='"+itemUrls.get(i)+"'>查看</a><span>"+itemContents.get(i)+"</span></div>\n");
+			sb.append("<div style='margin: 6px 0 6px 400px;max-width:800px;border-bottom: 3px dashed #ccc;'><span style='color:blue;'>"+authors.get(i)+"</span><a style='color:red;margin:0 10px;' href='"+itemUrls.get(i)+"'>查看</a><span>"+itemContents.get(i)+"</span></div>\n");
 		}
 		appendToFile(sb.toString());
 	}
