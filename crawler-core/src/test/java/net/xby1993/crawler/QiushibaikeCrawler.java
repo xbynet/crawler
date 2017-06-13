@@ -63,7 +63,7 @@ public class QiushibaikeCrawler extends Processor{
 	}
 	private synchronized void appendToFile(String content){
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd-HH");
-		File f=new File("D:\\code\\test\\qiushibaike_tweets\\"+sdf.format(new Date())+".html");
+		File f=new File("D:\\code\\test\\tweets\\"+sdf.format(new Date())+".qiushibaike.html");
 		if(!f.exists()){
 			try {
 				f.createNewFile();
