@@ -29,6 +29,16 @@ import org.slf4j.LoggerFactory;
 public class WindowUtil {
 	private static final Logger log=LoggerFactory.getLogger(WindowUtil.class);
 	/**
+	 * 窗口最大化
+	 * @param driver
+	 */
+	public static void maximize(WebDriver driver){
+		WebDriver.Options manage = driver.manage();
+//		manage.window().maximize();
+		manage.window().setSize(new Dimension(1920,1080));
+		driver.navigate().refresh();
+	}
+	/**
 	 * 滚动窗口。
 	 * @param driver
 	 * @param height
