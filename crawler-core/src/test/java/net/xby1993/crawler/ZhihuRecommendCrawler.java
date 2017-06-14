@@ -36,7 +36,7 @@ public class ZhihuRecommendCrawler extends Processor{
 			String link="https://www.zhihu.com"+e.select("h2 a.question_link").attr("href");
 			String authorAndInfo=e.select(".summary-wrapper").text();
 			String content=e.select(".zm-item-rich-text .zh-summary").html();
-			sb.append("<div style='margin: 6px 0 6px 400px;max-width:800px;border-bottom: 3px dashed #ccc;'><span style='color:blue;'>"+authorAndInfo+"</span><a style='color:red;margin:0 10px;' href='"+link+"'>查看</a><div>"+content+"</div></div>\n");
+			sb.append("<div style='margin: 6px 0 6px 400px;max-width:800px;border-bottom: 3px dashed #ccc;'><h4><a href=\""+link+"\">"+title+"</a></h4><span style='color:blue;'>"+authorAndInfo+"</span><a style='color:red;margin:0 10px;' href='"+link+"'>查看</a><div>"+content+"</div></div>\n");
 		}
 		appendToFile(sb.toString());
 		
