@@ -87,7 +87,7 @@ public class Spider implements ISpider, Runnable {
 			}
 			return this;
 		}
-		public Builder requests(List<Request> requestlist){
+		public Builder requests(Request... requestlist){
 			for(Request req:requestlist){
 				spider.scheduler.push(req, spider);
 			}
