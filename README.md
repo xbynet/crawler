@@ -146,7 +146,9 @@ public class GithubCrawler extends Processor {
 - Github(github个人项目信息)
 - OSChinaTweets(开源中国动弹)
 - Qiushibaike(醜事百科)
-
+- Neihanshequ(内涵段子)   
+- ZihuRecommend(知乎推荐)   
+ 
 **More Examples:** Please see [here](https://github.com/xbynet/crawler/tree/master/crawler-core/src/test/java/net/xby1993/crawler)  
 
 ## Thinks: 
