@@ -10,3 +10,9 @@
 /crawler-selenium/.project
 /crawler-selenium/.settings
 /crawler-selenium/.classpath
+/crawler-server/.tern-project
+/crawler-server/.settings
+/crawler-server/target
+/crawler-server/tomcat.8666
+/crawler-server/.classpath
+/crawler-server/.project
