@@ -1,5 +1,7 @@
 package net.xby1993.crawler;
 
+import java.beans.Transient;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +12,7 @@ import org.apache.http.client.protocol.HttpClientContext;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class Request {
+public class Request implements Serializable{
 	private String url;
 	private String encoding;
 	private Const.HttpMethod method=Const.HttpMethod.GET;
@@ -23,16 +25,13 @@ public class Request {
 	/**可以在添加请求时附加额外信息*/
 	private Map<String, Object> extras=new HashMap<String,Object>();
 	
-	@JSONField(serialize=false)
-	private HttpClientContext ctx;
+	private transient HttpClientContext ctx;
 	
 	/**
 	 * support for json,xml or more,在post时，设置此选项会使params参数失效。
 	  */
-	@JSONField(serialize=false)
-	private HttpEntity entity;
+	private transient HttpEntity entity;
 	
-	@JSONField(serialize=false)
 	private RequestAction action;
 	
 	/**支持存在分块请求的情形，(比如一篇文章需要翻多页抓取，歌手信息不分布在多个页面中)*/
@@ -78,6 +77,7 @@ public class Request {
 		extras.put(key, value);
 		return this;
 	}
+	
 	public HttpClientContext getCtx() {
 		return ctx;
 	}
@@ -85,6 +85,7 @@ public class Request {
 		this.ctx = ctx;
 		return this;
 	}
+	
 	public HttpEntity getEntity() {
 		return entity;
 	}

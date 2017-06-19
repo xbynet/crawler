@@ -1,5 +1,6 @@
 package net.xby1993.crawler.scheduler;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import net.xby1993.crawler.Request;
 import net.xby1993.crawler.RequestAction;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.SerializationUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.slf4j.Logger;
@@ -38,7 +40,6 @@ public class RedisScheduler  implements Scheduler, DuplicateRemover  {
 
     private static final String ITEM_PREFIX = "item_";
     
-    private ConcurrentHashMap<String,List<Object>> requestDeserialList=new ConcurrentHashMap<String,List<Object>>();
 
     public RedisScheduler(String host) {
         this(new JedisPool(new JedisPoolConfig(), host));
@@ -78,18 +79,9 @@ public class RedisScheduler  implements Scheduler, DuplicateRemover  {
 			 try {
 		            jedis.rpush(getQueueKey(spider), request.getUrl());
 		            String field = DigestUtils.md5Hex(request.getUrl());
-		            String value = JSON.toJSONString(request);
-		            jedis.hset((ITEM_PREFIX + spider.getName()), field, value);
-		            
-		            List<Object> slist=new ArrayList<Object>();
-		            
-		            slist.add(request.getCtx());
-		            slist.add(request.getEntity());
-		            slist.add(request.getAction());
-		            slist.add(request.getExtras());
-		            
-		            requestDeserialList.put(field,slist);
-		        } finally {
+		            byte[] data=SerializationUtils.serialize(request);
+		            jedis.hset((ITEM_PREFIX + spider.getName()).getBytes(), field.getBytes(), data);
+				} finally {
 		            jedis.close();
 		        }
 		}
@@ -106,19 +98,7 @@ public class RedisScheduler  implements Scheduler, DuplicateRemover  {
             String key = ITEM_PREFIX + spider.getName();
             String field = DigestUtils.md5Hex(url);
             byte[] bytes = jedis.hget(key.getBytes(), field.getBytes());
-            if (bytes != null) {
-                Request o = JSON.parseObject(new String(bytes), Request.class);
-                
-                List<Object> slist=requestDeserialList.remove(field);
-                
-                o.setCtx((HttpClientContext) slist.get(0));
-                o.setEntity((HttpEntity) slist.get(1));
-                o.setAction((RequestAction) slist.get(2));
-                o.setExtras((Map<String, Object>) slist.get(3));
-                
-                return o;
-            }
-            Request request = new Request(url);
+            Request request=SerializationUtils.deserialize(bytes);
             return request;
         } finally {
         	jedis.close();

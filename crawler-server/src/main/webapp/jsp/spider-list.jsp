@@ -34,7 +34,7 @@
                                 <tr class="${classSucess}">
                                     <td>${spider.name}</td>
                                     <td>${spider.processor}</td>
-                                    <td>${spider.status}</td>
+                                    <td id="status">${spider.status}</td>
                                     <td>
                                     	<button id="stateBtn" type="button" class="btn btn-info" onclick="changeState('${spider.name}');"> 
                                     	<c:if test ="${spider.status=='running'}">停止</c:if><c:if test ="${spider.status=='stopped' || spider.status=='notrun'}">开始</c:if></button>
