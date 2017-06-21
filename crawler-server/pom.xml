@@ -2,18 +2,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>net.xby1993</groupId>
+		<groupId>com.github.xbynet</groupId>
 		<artifactId>crawler-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.3.0</version>
 	</parent>
 	<artifactId>crawler-server</artifactId>
 	<packaging>jar</packaging>
 	<properties>
 		<tomcat.version>7.0.57</tomcat.version>
+		<myscope>compile</myscope>
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>net.xby1993</groupId>
+			<groupId>com.github.xbynet</groupId>
 			<artifactId>crawler-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -21,31 +22,37 @@
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-core</artifactId>
 			<version>${tomcat.version}</version>
+			<scope>${myscope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-logging-juli</artifactId>
 			<version>${tomcat.version}</version>
+			<scope>${myscope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<version>${tomcat.version}</version>
+			<scope>${myscope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jasper</artifactId>
 			<version>${tomcat.version}</version>
+			<scope>${myscope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jasper-el</artifactId>
 			<version>${tomcat.version}</version>
+			<scope>${myscope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jsp-api</artifactId>
 			<version>${tomcat.version}</version>
+			<scope>${myscope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>jstl</groupId>
@@ -54,7 +61,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>employees-app</finalName>
+		<finalName>crawler-server</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/webapp</directory>
@@ -72,7 +79,7 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-			<plugin>
+			 <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
@@ -82,7 +89,7 @@
 					<finalName>crawler-server-${project.version}</finalName>
 					<archive>
 						<manifest>
-							<mainClass>net.xby1993.crawler.server.Main</mainClass>
+							<mainClass>com.github.xbynet.crawler.server.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -94,7 +101,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> 
 		</plugins>
 	</build>
 </project>

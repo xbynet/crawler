@@ -9,12 +9,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import net.xby1993.crawler.parser.JsoupParser;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import com.github.xbynet.crawler.Processor;
+import com.github.xbynet.crawler.Request;
+import com.github.xbynet.crawler.Response;
+import com.github.xbynet.crawler.Site;
+import com.github.xbynet.crawler.Spider;
+import com.github.xbynet.crawler.parser.JsoupParser;
 
 public class OSChinaTweetsCrawler extends Processor{
 	private final int maxPageCount=20;

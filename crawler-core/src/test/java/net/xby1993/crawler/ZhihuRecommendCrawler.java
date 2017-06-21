@@ -7,14 +7,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import net.xby1993.crawler.parser.JsonPathParser;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.github.xbynet.crawler.Const;
+import com.github.xbynet.crawler.Processor;
+import com.github.xbynet.crawler.Request;
+import com.github.xbynet.crawler.Response;
+import com.github.xbynet.crawler.Site;
+import com.github.xbynet.crawler.Spider;
+import com.github.xbynet.crawler.parser.JsonPathParser;
 
 public class ZhihuRecommendCrawler extends Processor{
 	private Logger log=LoggerFactory.getLogger(ZhihuRecommendCrawler.class);

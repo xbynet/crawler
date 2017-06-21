@@ -5,18 +5,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import net.xby1993.crawler.http.DefaultDownloader;
-import net.xby1993.crawler.http.FileDownloader;
-import net.xby1993.crawler.http.HttpClientFactory;
-import net.xby1993.crawler.parser.JsoupParser;
-import net.xby1993.crawler.scheduler.DefaultScheduler;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
+
+import com.github.xbynet.crawler.Const;
+import com.github.xbynet.crawler.Processor;
+import com.github.xbynet.crawler.Request;
+import com.github.xbynet.crawler.RequestAction;
+import com.github.xbynet.crawler.Response;
+import com.github.xbynet.crawler.Site;
+import com.github.xbynet.crawler.Spider;
+import com.github.xbynet.crawler.http.DefaultDownloader;
+import com.github.xbynet.crawler.http.FileDownloader;
+import com.github.xbynet.crawler.http.HttpClientFactory;
+import com.github.xbynet.crawler.parser.JsoupParser;
+import com.github.xbynet.crawler.scheduler.DefaultScheduler;
 
 public class GithubCrawler extends Processor {
 	@Override

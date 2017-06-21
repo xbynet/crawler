@@ -1,5 +1,11 @@
 package net.xby1993.crawler;
 
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.impl.client.CloseableHttpClient;
+
+import com.alibaba.fastjson.JSONObject;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -35,4 +41,5 @@ public class AppTest
     {
         assertTrue( true );
     }
+
 }

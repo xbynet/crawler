@@ -11,11 +11,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.xby1993.crawler.parser.JsonPathParser;
-import net.xby1993.crawler.parser.JsoupParser;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+
+import com.github.xbynet.crawler.Processor;
+import com.github.xbynet.crawler.Response;
+import com.github.xbynet.crawler.Site;
+import com.github.xbynet.crawler.Spider;
+import com.github.xbynet.crawler.parser.JsonPathParser;
+import com.github.xbynet.crawler.parser.JsoupParser;
 
 public class NeihanshequCrawler  extends Processor{
 	private static final int maxCount=100;

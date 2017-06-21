@@ -1,25 +1,23 @@
-# crawler
-A simple and flexible web crawler framework for java.
+package com.github.xbynet.crawler.server.demo;
 
-## Features:
-1、Code  is easy to understand and customized (代码简单易懂，可定制性强)     
-2、Api is simple and easy to use         
-3、Support File download、Content part fetch.(支持文件下载、分块抓取)          
-4、Request And Response support much options、strong customizable.(请求和响应支持的内容和选项比较丰富、每个请求可定制性强)   
-5、Support do your own operation before or after network request in downloader(支持网络请求前后执行自定义操作)        
-6、Selenium+PhantomJS support     
-7、Redis support      
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
-## Future:
-1、Complete the code comment and test(完善代码注释和完善测试代码)     
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.impl.client.CloseableHttpClient;
 
-## Install:
-
-This is the plain maven javase project. So you can download the code and package jar file for your own.
-
-## demo:
-
-```java
+import com.github.xbynet.crawler.Const;
+import com.github.xbynet.crawler.Processor;
+import com.github.xbynet.crawler.Request;
+import com.github.xbynet.crawler.RequestAction;
+import com.github.xbynet.crawler.Response;
+import com.github.xbynet.crawler.Site;
+import com.github.xbynet.crawler.Spider;
 import com.github.xbynet.crawler.http.DefaultDownloader;
 import com.github.xbynet.crawler.http.FileDownloader;
 import com.github.xbynet.crawler.http.HttpClientFactory;
@@ -84,18 +82,14 @@ public class GithubCrawler extends Processor {
 		}
 	}
 
-	public void start() {
+	public Spider createSpider() {
 		Site site = new Site();
 		Spider spider = Spider.builder(this).threadNum(5).site(site)
 				.urls("https://github.com/xbynet").build();
-		spider.run();
+//		spider.run();
+		return spider;
 	}
-  
-	public static void main(String[] args) {
-		new GithubCrawler().start();
-	}
-  
-  
+
 	public void startCompleteConfig() {
 		String pcUA = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36";
 		String androidUA = "Mozilla/5.0 (Linux; Android 5.1.1; Nexus 6 Build/LYZ28E) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.23 Mobile Safari/537.36";
@@ -120,8 +114,8 @@ public class GithubCrawler extends Processor {
 					CloseableHttpResponse resp) {
 				System.out.println("after-haha");
 			}
-		}).setCtx(ctx).setEncoding("UTF-8")
-				.putExtra("somekey", "I can use in the response by your own")
+		}).setCtx(ctx).setEncoding("GBK")
+				.putExtra("somekey", "我是可以在response中使用的extras哦")
 				.setHeader("User-Agent", pcUA).setMethod(Const.HttpMethod.GET)
 				.setPartRequest(null).setEntity(null)
 				.setParams("appkeyqqqqqq", "1213131232141").setRetryCount(5)
@@ -137,23 +131,7 @@ public class GithubCrawler extends Processor {
 		spider.run();
 	}
 
-
+	public static void main(String[] args) {
+//		new GithubCrawler().start();
+	}
 }
-
-```
-## Examples:
-
-- Github(github个人项目信息)
-- OSChinaTweets(开源中国动弹)
-- Qiushibaike(醜事百科)
-- Neihanshequ(内涵段子)   
-- ZihuRecommend(知乎推荐)   
- 
-**More Examples:** Please see [here](https://github.com/xbynet/crawler/tree/master/crawler-core/src/test/java/net/xby1993/crawler)  
-
-## Thinks: 
-[webmagic](https://github.com/code4craft/webmagic):本项目借鉴了webmagic多处代码，设计上也作了较多参考，非常感谢。     
-[xsoup](https://github.com/code4craft/xsoup)：本项目使用xsoup作为底层xpath处理器      
-[JsonPath](https://github.com/json-path/JsonPath)：本项目使用JsonPath作为底层jsonpath处理器    
-[Jsoup](https://jsoup.org/) 本项目使用Jsoup作为底层HTML/XML处理器      
-[HttpClient](http://hc.apache.org/) 本项目使用HttpClient作为底层网络请求工具    
