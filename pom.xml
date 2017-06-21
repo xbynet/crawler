@@ -26,7 +26,7 @@
 		<connection>scm:git:git@github.com:xbynet/crawler.git</connection>
 		<developerConnection>scm:git:git@github.com:xbynet/crawler.git</developerConnection>
 		<url>git@github.com:xbynet/crawler.git</url>
-		<tag>crawler-parent-0.3.0</tag>
+		<tag>v${project.version}</tag>
 	</scm>
 	<licenses>
 		<license>
@@ -39,7 +39,7 @@
 		<module>crawler-selenium</module>
 		<module>crawler-server</module>
 	</modules>
-	
+
 	<repositories>
 		<repository>
 			<id>aliyun</id>
@@ -50,10 +50,15 @@
 			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
 		</repository>
 	</repositories>
-	<!-- <pluginRepositories><pluginRepository><id>aliyun-plugin</id><name>Public 
-		Repositories</name><url>http://maven.aliyun.com/nexus/content/groups/public/</url></pluginRepository></pluginRepositories> -->
-	
-	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>aliyun-plugin</id>
+			<name>Public Repositories</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -146,7 +151,7 @@
 	</dependencyManagement>
 	<build>
 		<plugins>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -171,7 +176,7 @@
 				<!-- <configuration> <excludes> <exclude>log4j.xml</exclude> </excludes> 
 					</configuration> -->
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -201,10 +206,14 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.4.1</version>
+				<configuration>
+					<tagNameFormat>v@{project.version}</tagNameFormat>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<profiles>
 		<profile>
 			<id>release</id>
@@ -242,7 +251,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.5</version>
+						<version>1.6</version>
 						<executions>
 							<execution>
 								<phase>verify</phase>
@@ -258,7 +267,7 @@
 						<version>1.6</version>
 						<extensions>true</extensions>
 						<configuration>
-							<serverId>sonatype-nexus-staging</serverId>
+							<serverId>osscenter</serverId>
 							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 							<autoReleaseAfterClose>true</autoReleaseAfterClose>
 						</configuration>
@@ -267,11 +276,11 @@
 			</build>
 			<distributionManagement>
 				<snapshotRepository>
-					<id>sonatype-nexus-snapshots</id>
+					<id>osscenter</id>
 					<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
 				</snapshotRepository>
 				<repository>
-					<id>sonatype-nexus-staging</id>
+					<id>osscenter</id>
 					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 				</repository>
 			</distributionManagement>
