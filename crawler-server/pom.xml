@@ -60,6 +60,38 @@
 			<version>1.2</version>
 		</dependency>
 	</dependencies>
+	<profiles>
+		<profile>
+			<id>pkg</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<configuration>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<finalName>crawler-server-${project.version}</finalName>
+							<archive>
+								<manifest>
+									<mainClass>com.github.xbynet.crawler.server.Main</mainClass>
+								</manifest>
+							</archive>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 	<build>
 		<finalName>crawler-server</finalName>
 		<resources>
@@ -79,29 +111,6 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-			 <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<finalName>crawler-server-${project.version}</finalName>
-					<archive>
-						<manifest>
-							<mainClass>com.github.xbynet.crawler.server.Main</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin> 
 		</plugins>
 	</build>
 </project>
