@@ -16,19 +16,21 @@ A simple and flexible web crawler framework for java.
 ## Install:
 
 The only module that must be added is crawler-core
-
+```xml
 <dependency>
     <groupId>com.github.xbynet</groupId>
     <artifactId>crawler-core</artifactId>
     <version>0.3.0</version>
 </dependency
-
+```
 But if you want to use selenium support:
+```xml
 <dependency>
     <groupId>com.github.xbynet</groupId>
     <artifactId>crawler-selenium</artifactId>
     <version>0.3.0</version>
 </dependency
+```
 
 Module crawler-server is now a experimental attempt, and now has more work to do on it.
 
