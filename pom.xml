@@ -109,6 +109,11 @@
 			<version>1.7.22</version>
 		</dependency>
 		<dependency>
+   		 	<groupId>org.slf4j</groupId>
+    		<artifactId>jcl-over-slf4j</artifactId>
+    		<version>1.7.22</version>
+		</dependency>
+		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.10.2</version>
@@ -126,6 +131,13 @@
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-dependencies</artifactId>
+            <version>1.5.4.RELEASE</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
 			<dependency>
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-java</artifactId>
