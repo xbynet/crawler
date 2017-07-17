@@ -34,7 +34,7 @@ But if you want to use selenium support:
 
 Module crawler-server is now a experimental attempt, and now has more work to do on it.
 
-## demo:
+## Demo:
 
 ```java
 import com.github.xbynet.crawler.http.DefaultDownloader;
@@ -168,7 +168,7 @@ public class GithubCrawler extends Processor {
  
 **More Examples:** Please see [here](https://github.com/xbynet/crawler/tree/master/crawler-core/src/test/java/net/xby1993/crawler)  
 
-## Thinks: 
+## Thanks: 
 [webmagic](https://github.com/code4craft/webmagic):本项目借鉴了webmagic多处代码，设计上也作了较多参考，非常感谢。     
 [xsoup](https://github.com/code4craft/xsoup)：本项目使用xsoup作为底层xpath处理器      
 [JsonPath](https://github.com/json-path/JsonPath)：本项目使用JsonPath作为底层jsonpath处理器    
